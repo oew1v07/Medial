@@ -13,6 +13,8 @@ import numpy as np
 import matplotlib as plt
 from scipy.ndimage.filters import laplace
 from skimage.data import coins
+from skimage.filters import threshold_otsu
+from skimage.morphology import remove_small_holes
 
 def medial(image, visualise=False):
     """Creates a medial axis transform image
@@ -49,3 +51,14 @@ def coins():
     -------
     out: ndarray (bool)
     """
+    # Remember this is grayscale
+    im = coins()
+
+    threshold = threshold_otsu(im)
+
+    thresh_im = coins > threshold
+
+    thresh_im = remove_small_holes(thresh_im, 150)
+
+    return thresh_im
+
