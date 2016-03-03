@@ -4,7 +4,7 @@ import numpy as np
 
 
 def apple():
-    if exists("apple.gif"):
+    if exists("Images/apple.gif"):
         out = np.asarray(open("Images/apple.gif"))
     else:
         out = None
@@ -12,7 +12,7 @@ def apple():
     return out
 
 def bat():
-    if exists("bat.gif"):
+    if exists("Images/bat.gif"):
         out = np.asarray(open("Images/bat.gif"))
     else:
         out = None
@@ -20,7 +20,7 @@ def bat():
     return out
 
 def beetle():
-    if exists("beetle.gif"):
+    if exists("Images/beetle.gif"):
         out = np.asarray(open("Images/beetle.gif"))
     else:
         out = None
@@ -28,7 +28,7 @@ def beetle():
     return out
 
 def bell():
-    if exists("bell.gif"):
+    if exists("Images/bell.gif"):
         out = np.asarray(open("Images/bell.gif"))
     else:
         out = None
@@ -36,7 +36,7 @@ def bell():
     return out
 
 def bone():
-    if exists("Bone.gif"):
+    if exists("Images/Bone.gif"):
         out = np.asarray(open("Images/Bone.gif"))
     else:
         out = None
@@ -44,7 +44,7 @@ def bone():
     return out
 
 def butterfly():
-    if exists("butterfly.gif"):
+    if exists("Images/butterfly.gif"):
         out = np.asarray(open("Images/butterfly.gif"))
     else:
         out = None
@@ -52,7 +52,7 @@ def butterfly():
     return out
 
 def camel():
-    if exists("camel.gif"):
+    if exists("Images/camel.gif"):
         out = np.asarray(open("Images/camel.gif"))
     else:
         out = None
@@ -60,7 +60,7 @@ def camel():
     return out
 
 def chopper():
-    if exists("chopper.gif"):
+    if exists("Images/chopper.gif"):
         out = np.asarray(open("Images/chopper.gif"))
     else:
         out = None
@@ -68,7 +68,7 @@ def chopper():
     return out
 
 def deer():
-    if exists("deer.gif"):
+    if exists("Images/deer.gif"):
         out = np.asarray(open("Images/deer.gif"))
     else:
         out = None
@@ -76,7 +76,7 @@ def deer():
     return out
 
 def device1():
-    if exists("device1.gif"):
+    if exists("Images/device1.gif"):
         out = np.asarray(open("Images/device1.gif"))
     else:
         out = None
@@ -84,7 +84,7 @@ def device1():
     return out
 
 def device2():
-    if exists("device2.gif"):
+    if exists("Images/device2.gif"):
         out = np.asarray(open("Images/device2.gif"))
     else:
         out = None
@@ -92,7 +92,7 @@ def device2():
     return out
 
 def elephant():
-    if exists("elephant.gif"):
+    if exists("Images/elephant.gif"):
         out = np.asarray(open("Images/elephant.gif"))
     else:
         out = None
@@ -101,7 +101,7 @@ def elephant():
 
 
 def frog():
-    if exists("frog.gif"):
+    if exists("Images/frog.gif"):
         out = np.asarray(open("Images/frog.gif"))
     else:
         out = None
@@ -109,7 +109,7 @@ def frog():
     return out
 
 def hammer():
-    if exists("hammer.gif"):
+    if exists("Images/hammer.gif"):
         out = np.asarray(open("Images/hammer.gif"))
     else:
         out = None
@@ -117,7 +117,7 @@ def hammer():
     return out
 
 def turtle():
-    if exists("turtle.gif"):
+    if exists("Images/turtle.gif"):
         out = np.asarray(open("Images/turtle.gif"))
     else:
         out = None
