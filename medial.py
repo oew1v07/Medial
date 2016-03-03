@@ -61,6 +61,8 @@ def medial(image, visualise=False):
 
         dist[y_im, im_x[i]] = min(dists)
 
+    return dist
+
 def thresholds(image):
     """Thresholds and removes noise of image
 
