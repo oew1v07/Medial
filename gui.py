@@ -24,7 +24,7 @@ min0 = 0
 max0 = 25000
 
 im = misc.imread(os.path.join(figureDir,filenames[imageNames[0]]))
-im1 = ax.imshow(im)
+im1 = ax.imshow(im, cmap = "gray")
 distanceImage = distance_transform_edt(im)
 lapImage = laplace(distanceImage, mode="constant")
 skeleton = lapImage < 0
@@ -42,40 +42,40 @@ def loadImage(filename):
     lapImage = laplace(distanceImage, mode="constant")
     skeleton = lapImage < 0
     resultImage = np.logical_and(np.logical_not(skeleton), im )
-    im1 = ax.imshow(im)
+    im1 = ax.imshow(im, cmap = "gray")
 
 distanceAxes = plt.axes([0.05, 0.145, 0.2, 0.04])
 distanceButton = Button(distanceAxes, 'Distance', hovercolor='0.975')
 def showDistance(event):
-    im1 = ax.imshow(distanceImage)
+    im1 = ax.imshow(distanceImage, cmap = "gray")
     plt.draw()
 distanceButton.on_clicked(showDistance)
 
 laplaceAxes = plt.axes([0.3, 0.145, 0.2, 0.04])
 laplaceButton = Button(laplaceAxes, 'Laplacian', hovercolor='0.975')
 def showLaplace(event):
-    im1 = ax.imshow(lapImage)
+    im1 = ax.imshow(lapImage, cmap = "gray")
     plt.draw()
 laplaceButton.on_clicked(showLaplace)
 
 thresholdAxes = plt.axes([0.55, 0.145, 0.2, 0.04])
 thresholdButton = Button(thresholdAxes, 'Threshold', hovercolor='0.975')
 def showThresholdedevent(event):
-    im1 = ax.imshow(skeleton)
+    im1 = ax.imshow(skeleton, cmap = "gray")
     plt.draw()
 thresholdButton.on_clicked(showThresholdedevent)
 
 allStagesAxes = plt.axes([0.05, 0.045, 0.2, 0.04])
 allStagesButton = Button(allStagesAxes, 'Result', hovercolor='0.975')
 def showResult(event):
-    im1 = ax.imshow(resultImage)
+    im1 = ax.imshow(resultImage, cmap = "gray")
     plt.draw()
 allStagesButton.on_clicked(showResult)
 
 originalAx = plt.axes([0.55, 0.045, 0.2, 0.04])
 originalButton = Button(originalAx, 'Original', hovercolor='0.975')
 def showOriginal(event):
-    im1 = ax.imshow(im)
+    im1 = ax.imshow(im, cmap = "gray")
     plt.draw()
 originalButton.on_clicked(showOriginal)
 
