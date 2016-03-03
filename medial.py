@@ -40,7 +40,7 @@ def medial(image, visualise=False):
     dist = distance_transform_edt(im)
 
     # Calculate laplacian
-    
+    laplace(dist, mode="constant")
 
     return dist
 
