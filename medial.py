@@ -143,7 +143,6 @@ def remove_small_holes(ar, min_size=64, connectivity=1, in_place=False):
     outputs a bool image). It is suggested that labeling is completed after
     using this function.
     """
-    _check_dtype_supported(ar)
 
     #Creates warning if image is an integer image
     if ar.dtype != bool:
