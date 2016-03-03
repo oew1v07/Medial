@@ -171,9 +171,12 @@ def remove_small_holes(ar, min_size=64, connectivity=1, in_place=False):
     return out
 
 
-def run_coins():
-    thresh_im = coins_image()
+def run_rect():
 
-    return medial(thresh_im)
+    rect = np.ones((256, 256))
 
-medial_coins = run_coins()
+    rect[20:50, 20:70] = 1
+
+    return medial(rect)
+
+medial_rect = run_rect()
