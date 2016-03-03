@@ -6,7 +6,7 @@ Steps involved:
 3.  For each non-boundary pixel find the distance to the
     nearest boundary pixel, using Euclidean distance
 4.  Calculate Laplacian of the distance image.
-5.  Items with large values in the Laplacian image are
+5.  Items with large values in the Laplacian image are 
     considered to be part of the medial axis"""
 
 import numpy as np
@@ -150,6 +150,14 @@ def remove_small_holes(ar, min_size=64, connectivity=1, in_place=False):
 
     return out
 
+
+def run_rect():
+
+    rect = np.ones((256, 256))
+
+    rect[20:50, 20:70] = 1
+
+    return medial(rect)
 
 def run_coins():
     thresh_im = coins_image()
