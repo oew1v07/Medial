@@ -17,6 +17,25 @@ from skimage.feature import canny
 from skimage.filters import threshold_otsu
 from skimage.morphology import remove_small_objects
 
+
+def thresholds(image):
+    """Thresholds and removes noise of image
+
+    Returns
+    -------
+    thresh_im: ndarray (bool)
+    """
+
+    threshold = threshold_otsu(image)
+
+    thresh_im = image > threshold
+
+    thresh_im = remove_small_holes(thresh_im)
+
+    thresh_im = remove_small_objects(thresh_im)
+
+    return thresh_im
+
 def medial(image, visualise=False):
     """Creates a medial axis transform image
     
@@ -63,30 +82,14 @@ def medial(image, visualise=False):
 
     return dist
 
-def thresholds(image):
-    """Thresholds and removes noise of image
 
-    Returns
-    -------
-    thresh_im: ndarray (bool)
-    """
-
-    threshold = threshold_otsu(image)
-
-    thresh_im = image > threshold
-
-    thresh_im = remove_small_holes(thresh_im)
-
-    thresh_im = remove_small_objects(thresh_im)
-
-    return thresh_im
-
-def coins():
+def coins_image():
     im = coins()
 
     thresh_im = thresholds(im)
 
     return thresh_im
+
 
 def remove_small_holes(ar, min_size=64, connectivity=1, in_place=False):
     """Remove continguous holes smaller than the specified size.
@@ -168,3 +171,10 @@ def remove_small_holes(ar, min_size=64, connectivity=1, in_place=False):
 
     return out
 
+
+def run_coins():
+    thresh_im = coins_image()
+
+    return medial(thresh_im)
+
+medial_coins = run_coins()
