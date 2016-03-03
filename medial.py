@@ -40,9 +40,11 @@ def medial(image, visualise=False):
     dist = distance_transform_edt(im)
 
     # Calculate laplacian
-    laplace(dist, mode="constant")
+    lap = laplace(dist, mode="constant")
 
-    return dist
+    out = lap < 0
+
+    return out
 
 
 def coins_image():
