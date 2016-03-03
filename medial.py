@@ -6,7 +6,7 @@ Steps involved:
 3.  For each non-boundary pixel find the distance to the
     nearest boundary pixel, using Euclidean distance
 4.  Calculate Laplacian of the distance image.
-5.  Items with large values in the Laplacian image are 
+5.  Items with large values in the Laplacian image are
     considered to be part of the medial axis"""
 
 import numpy as np
@@ -16,6 +16,8 @@ from skimage.data import coins
 from skimage.feature import canny
 from skimage.filters import threshold_otsu
 from skimage.morphology import remove_small_objects
+from scipy.misc import imsave
+from scipy.ndimage.morphology import distance_transform_edt
 
 
 def thresholds(image):
@@ -38,7 +40,7 @@ def thresholds(image):
 
 def medial(image, visualise=False):
     """Creates a medial axis transform image
-    
+
     Args
     ----
     image: ndarray
@@ -55,30 +57,8 @@ def medial(image, visualise=False):
     # Remove noise and make sure it's thresholded
     im = thresholds(image)
 
-    # Find border pixel locations of boolean image
-    # Do canny on the boolean image
-    edgeImage = canny(im)
-
-    # Find points where boundaries are
-    edges_y, edges_x = np.nonzero(edgeImage)
-
-    # Find where thresholded image points are nonzero
-
-    im_y, im_x = np.nonzero(im)
-
-    # Create empty distance image
-    dist = np.zeros(image.shape)
-
     # Calculate distance to all border pixels for each non-border pixel
-    for i, y_im in enumerate(im_y):
-        dists = []
-        # x_im = im_x[i]
-        for j, y_ed in enumerate(edges_y):
-            # x_ed = edges_x[j]
-            new_dist = np.sqrt((y_im - y_ed)**2 + (im_x[i] - edges_x[j])**2)
-            dists.append(new_dist)
-
-        dist[y_im, im_x[i]] = min(dists)
+    dist = distance_transform_edt(im)
 
     return dist
 
@@ -173,7 +153,8 @@ def remove_small_holes(ar, min_size=64, connectivity=1, in_place=False):
 
 def run_coins():
     thresh_im = coins_image()
-
+    imsave("coins.png", thresh_im)
     return medial(thresh_im)
 
 medial_coins = run_coins()
+imsave("output.png", medial_coins)
