@@ -17,7 +17,7 @@ from scipy.ndimage.morphology import distance_transform_edt
 from skimage.data import coins
 from thresholds import thresholds
 
-def medial(image, visualise=False):
+def medial(image):
     """Creates a medial axis transform image
 
     Args

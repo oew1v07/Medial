@@ -1,5 +1,7 @@
+from medial import medial
 from os.path import exists
 from PIL.Image import open
+from scipy.misc import imsave
 import numpy as np
 
 
@@ -124,18 +126,24 @@ def turtle():
 
     return out
 
-appleImage = apple()
-batImage = bat()
-beetleImage = beetle()
-bellImage = bell()
-boneImage = bone()
-butterflyImage = butterfly()
-camelImage = camel()
-chopperImage = chopper()
-deerImage = deer()
-device1Image = device1()
-device2Image = device2()
-elephantImage = elephant()
-frogImage = frog()
-hammerImage = hammer()
-turtleImage = turtle()
+def run_animals():
+
+    animals = [apple(), bat(), beetle(), bell(), bone(), butterfly(),
+               camel(), chopper(), deer(), device1(), device2(), elephant(),
+               frog(), hammer(), turtle()]
+
+    animal_names = ["apple", "bat", "beetle", "bell", "bone", "butterfly",
+                    "camel", "chopper", "deer", "device1", "device2", "elephant",
+                    "frog", "hammer", "turtle"]
+
+    animal_medial = []
+
+    for i, animal in enumerate(animals):
+        med = medial(animal)
+        animal_medial.append(med)
+        name = animal_names[i] + ".png"
+        imsave(name, med)
+
+    return animal_medial
+
+run_animals()
