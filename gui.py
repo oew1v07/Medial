@@ -1,7 +1,7 @@
 import matplotlib.pyplot as plt
 import numpy as np
 from matplotlib.widgets import Button, RadioButtons
-import scipy.misc as misc
+from PIL import Image
 from medial import medial
 from scipy.ndimage.filters import laplace
 from scipy.ndimage.morphology import distance_transform_edt
@@ -23,12 +23,12 @@ fig.subplots_adjust(left=0.25, bottom=0.25)
 min0 = 0
 max0 = 25000
 
-im = misc.imread(os.path.join(figureDir,filenames[imageNames[0]]))
+im = np.asarray(Image.open(os.path.join(figureDir,filenames[imageNames[0]])))
 im1 = ax.imshow(im, cmap = "gray")
 distanceImage, lapImage, resultImage = medial(im)
+skeleton = lapImage < 0
 # distanceImage = distance_transform_edt(im)
 # lapImage = laplace(distanceImage, mode="constant")
-skeleton = lapImage < 0
 # resultImage = np.logical_and(np.logical_not(skeleton), im )
 def loadImage(filename):
     global im
@@ -38,45 +38,43 @@ def loadImage(filename):
     global resultImage
     global im1
 
-    im = misc.imread(filename)
-    distanceImage = distance_transform_edt(im)
-    lapImage = laplace(distanceImage, mode="constant")
+    im = np.asarray(Image.open(filename))
+    distanceImage, lapImage, resultImage = medial(im)
     skeleton = lapImage < 0
-    resultImage = np.logical_and(np.logical_not(skeleton), im )
-    im1 = ax.imshow(im, cmap = "gray")
+    im1 = ax.imshow(im, cmap = "gray", interpolation="nearest")
 
 distanceAxes = plt.axes([0.05, 0.145, 0.2, 0.04])
 distanceButton = Button(distanceAxes, 'Distance', hovercolor='0.975')
 def showDistance(event):
-    im1 = ax.imshow(distanceImage, cmap = "gray")
+    im1 = ax.imshow(distanceImage, cmap = "gray", interpolation="nearest")
     plt.draw()
 distanceButton.on_clicked(showDistance)
 
 laplaceAxes = plt.axes([0.3, 0.145, 0.2, 0.04])
 laplaceButton = Button(laplaceAxes, 'Laplacian', hovercolor='0.975')
 def showLaplace(event):
-    im1 = ax.imshow(lapImage, cmap = "gray")
+    im1 = ax.imshow(lapImage, cmap = "gray", interpolation="nearest")
     plt.draw()
 laplaceButton.on_clicked(showLaplace)
 
 thresholdAxes = plt.axes([0.55, 0.145, 0.2, 0.04])
 thresholdButton = Button(thresholdAxes, 'Threshold', hovercolor='0.975')
 def showThresholdedevent(event):
-    im1 = ax.imshow(skeleton, cmap = "gray")
+    im1 = ax.imshow(skeleton, cmap = "gray", interpolation="nearest")
     plt.draw()
 thresholdButton.on_clicked(showThresholdedevent)
 
 allStagesAxes = plt.axes([0.05, 0.045, 0.2, 0.04])
 allStagesButton = Button(allStagesAxes, 'Result', hovercolor='0.975')
 def showResult(event):
-    im1 = ax.imshow(resultImage, cmap = "gray")
+    im1 = ax.imshow(resultImage, cmap = "gray", interpolation="nearest")
     plt.draw()
 allStagesButton.on_clicked(showResult)
 
 originalAx = plt.axes([0.55, 0.045, 0.2, 0.04])
 originalButton = Button(originalAx, 'Original', hovercolor='0.975')
 def showOriginal(event):
-    im1 = ax.imshow(im, cmap = "gray")
+    im1 = ax.imshow(im, cmap = "gray", interpolation="nearest")
     plt.draw()
 originalButton.on_clicked(showOriginal)
 
