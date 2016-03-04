@@ -42,9 +42,14 @@ def medial(image):
     # Calculate laplacian
     lap = laplace(dist, mode="constant")
 
+    # Select items that are maximums and therefore less than 0
     out = lap < 0
 
-    return out
+    # Mask all items that are outside the boundaries 
+    # using the original image
+    resultImage = np.logical_and(np.logical_not(out), im )
+
+    return dist, lap, resultImage
 
 
 def coins_image():
@@ -60,13 +65,15 @@ def run_rect():
     rect = np.ones((256, 256))
 
     rect[20:50, 20:70] = 1
+    dist, lap, out = medial(rect)
 
-    return medial(rect)
+    return out
 
 def run_coins():
     thresh_im = coins_image()
     imsave("coins.png", thresh_im)
-    return medial(thresh_im)
+    dist, lap, out = medial(thresh_im)
+    return out
 
 medial_coins = run_coins()
 imsave("output.png", medial_coins)

@@ -146,4 +146,4 @@ def run_animals():
 
     return animal_medial
 
-run_animals()
+animal_medial = run_animals()

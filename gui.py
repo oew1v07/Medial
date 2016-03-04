@@ -2,7 +2,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 from matplotlib.widgets import Button, RadioButtons
 import scipy.misc as misc
-
+from medial import medial
 from scipy.ndimage.filters import laplace
 from scipy.ndimage.morphology import distance_transform_edt
 from os import listdir
@@ -25,10 +25,11 @@ max0 = 25000
 
 im = misc.imread(os.path.join(figureDir,filenames[imageNames[0]]))
 im1 = ax.imshow(im, cmap = "gray")
-distanceImage = distance_transform_edt(im)
-lapImage = laplace(distanceImage, mode="constant")
+distanceImage, lapImage, resultImage = medial(im)
+# distanceImage = distance_transform_edt(im)
+# lapImage = laplace(distanceImage, mode="constant")
 skeleton = lapImage < 0
-resultImage = np.logical_and(np.logical_not(skeleton), im )
+# resultImage = np.logical_and(np.logical_not(skeleton), im )
 def loadImage(filename):
     global im
     global distanceImage
