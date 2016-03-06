@@ -8,6 +8,7 @@ from scipy.ndimage.morphology import distance_transform_edt
 from os import listdir
 from os.path import isfile, join
 import os
+from skimage.morphology import medial_axis
 
 # Images
 figureDir = 'Images'
@@ -27,6 +28,8 @@ im = np.asarray(Image.open(os.path.join(figureDir,filenames[imageNames[0]])))
 im1 = ax.imshow(im, cmap = "gray")
 distanceImage, lapImage, resultImage = medial(im)
 skeleton = lapImage < 0
+skimage = medial_axis(im, return_distance=False)
+lapImage = lapImage - np.max(lapImage)
 # distanceImage = distance_transform_edt(im)
 # lapImage = laplace(distanceImage, mode="constant")
 # resultImage = np.logical_and(np.logical_not(skeleton), im )
@@ -37,11 +40,14 @@ def loadImage(filename):
     global skeleton
     global resultImage
     global im1
+    global skimage
 
     im = np.asarray(Image.open(filename))
     distanceImage, lapImage, resultImage = medial(im)
     skeleton = lapImage < 0
     im1 = ax.imshow(im, cmap = "gray", interpolation="nearest")
+    skimage = medial_axis(im, return_distance=False)
+    lapImage = lapImage - np.max(lapImage)
 
 distanceAxes = plt.axes([0.05, 0.145, 0.2, 0.04])
 distanceButton = Button(distanceAxes, 'Distance', hovercolor='0.975')
@@ -71,12 +77,19 @@ def showResult(event):
     plt.draw()
 allStagesButton.on_clicked(showResult)
 
-originalAx = plt.axes([0.55, 0.045, 0.2, 0.04])
+originalAx = plt.axes([0.3, 0.045, 0.2, 0.04])
 originalButton = Button(originalAx, 'Original', hovercolor='0.975')
 def showOriginal(event):
     im1 = ax.imshow(im, cmap = "gray", interpolation="nearest")
     plt.draw()
 originalButton.on_clicked(showOriginal)
+
+skimageAx = plt.axes([0.55, 0.045, 0.2, 0.04])
+skimageButton = Button(skimageAx, 'Skimage', hovercolor='0.975')
+def showSkimage(event):
+    im1 = ax.imshow(skimage, cmap = "gray", interpolation="nearest")
+    plt.draw()
+skimageButton.on_clicked(showSkimage)
 
 # Choose the input image and reload it
 imageChoiceAx = plt.axes([0.025, 0.25, 0.2, 0.6])
